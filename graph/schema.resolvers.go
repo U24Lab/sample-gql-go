@@ -15,18 +15,20 @@ import (
 
 var todoRepo mongoDBRepo.TodoRepo = mongoDBRepo.New()
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.NewTodo, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
 
-	todo := &model.NewTodo{
-		Text:   input.Text,
-		UserID: strconv.Itoa(rand.Int()),
+	todo := &model.Todo{
+		ID:   strconv.Itoa(rand.Int()),
+		Text: input.Text,
+		Done: false,
+		User: input.UserID,
 	}
 	todoRepo.Save(todo)
 
 	return todo, nil
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.NewTodo, error) {
+func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 
 	// r.todo = make([]*model.Todo, 0)
 	// todo1 := &model.Todo{
