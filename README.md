@@ -1,16 +1,41 @@
-Structure of Setup of Graphql with gqlgen
-Steps:
+# Structure of Setup of Graphql with `gqlgen`
 
-1. go mod init github.com/U24Lab/sample-gql-go
+# Steps:
 
-2. go get github.com/99designs/gqlgen
+# 1. Create Project
 
-3. go run github.com/99designs/gqlgen init
+go mod init github.com/U24Lab/sample-gql-go
 
-4. go mod tidy
+# 2. Get `gqlgen`
 
-5. If required:
+go get github.com/99designs/gqlgen
 
-   go get github.com/vektah/gqlparser/v2@v2.1.0
+# 3. Make `gqlgen` create the structure
 
-   go get github.com/vektah/gqlparser/v2/ast@v2.1.0
+go run github.com/99designs/gqlgen init
+
+# 4. Make the Modules Tidy
+
+go mod tidy
+
+# 5. If error shows to get parser module add it
+
+If required:
+
+go get github.com/vektah/gqlparser/v2@v2.1.0
+
+go get github.com/vektah/gqlparser/v2/ast@v2.1.0
+
+# 6. Create DB
+
+6: MongoDB:
+
+use tododb
+
+## Create User
+
+db.createUser({user:"dev",pwd:"Welcome$1", roles:[{role:"dbOwner",db:"tododb"}]})
+
+## Create Collection
+
+db.createCollection("TODO")
