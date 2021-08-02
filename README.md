@@ -32,10 +32,10 @@ go get github.com/vektah/gqlparser/v2/ast@v2.1.0
 
 use tododb
 
-## Create User
+#### Create User
 
 db.createUser({user:"dev",pwd:"Welcome$1", roles:[{role:"dbOwner",db:"tododb"}]})
 
-## Create Collection
+#### Create Collection
 
 db.createCollection("TODO")

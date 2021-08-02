@@ -4,7 +4,7 @@ package model
 
 type NewTodo struct {
 	Text   string `json:"text"`
-	UserID string `json:"userId"`
+	UserID string `json:"userId" bson:"_id"`
 }
 
 type Todo struct {

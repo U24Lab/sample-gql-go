@@ -15,7 +15,7 @@ type User {
 }
 
 type Query {
-  todos: [Todo!]!
+  todos: [NewTodo!]!
 }
 
 input NewTodo {
@@ -24,5 +24,5 @@ input NewTodo {
 }
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  createTodo(input: NewTodo!): NewTodo!
 }

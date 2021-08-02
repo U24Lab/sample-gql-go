@@ -5,29 +5,28 @@ package graph
 
 import (
 	"context"
-	"fmt"
 	"math/rand"
+	"strconv"
 
 	"github.com/U24Lab/sample-gql-go/graph/generated"
 	"github.com/U24Lab/sample-gql-go/graph/model"
+	"github.com/U24Lab/sample-gql-go/mongoDBRepo"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+var todoRepo mongoDBRepo.TodoRepo = mongoDBRepo.New()
 
-	todo1 := &model.Todo{
-		ID:   fmt.Sprintf("T%d", rand.Int()),
-		Text: input.Text,
-		Done: false,
-		User: &model.User{
-			ID: input.UserID,
-		},
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.NewTodo, error) {
+
+	todo := &model.NewTodo{
+		Text:   input.Text,
+		UserID: strconv.Itoa(rand.Int()),
 	}
-	r.todo = append(r.todo, todo1)
+	todoRepo.Save(todo)
 
-	return todo1, nil
+	return todo, nil
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+func (r *queryResolver) Todos(ctx context.Context) ([]*model.NewTodo, error) {
 
 	// r.todo = make([]*model.Todo, 0)
 	// todo1 := &model.Todo{
@@ -41,7 +40,7 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	// }
 	// r.todo = append(r.todo, todo1)
 
-	return r.todo, nil
+	return todoRepo.GetAll(), nil
 
 }
 
